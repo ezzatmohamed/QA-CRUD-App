@@ -7,4 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class question extends Model
 {
     //
+    public function user() 
+    {
+        return $this->belongsTo('App\User');
+    }
+    public function answers()
+    {
+        return $this->hasMany('App\answer');
+    }
 }

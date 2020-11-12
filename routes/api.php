@@ -17,5 +17,21 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+
 Route::post('/login','UserController@login');
 Route::post('/signup','UserController@signup');
+
+Route::prefix('/question')->group(function(){
+    Route::post('/create','QuestionController@create');
+    Route::post('/update/{id}','QuestionController@update');
+    Route::post('/delete/{id}','QuestionController@delete');
+    Route::get('/read-all','QuestionController@readAll');
+    Route::get('/read-mine','QuestionController@readMine');
+});
+
+Route::prefix('/answer')->group(function(){
+    Route::post('/create','AnswerController@create');
+    Route::get('/read/{id}','AnswerController@read');
+    Route::post('/update/{id}','AnswerController@update');
+    Route::post('/delete/{id}','AnswerController@delete');
+});

@@ -23,7 +23,7 @@ class AnswerController extends Controller
         return response(['answer'=>$answer]);
     }
     public function read(Request $request,$id){
-        error_log($request['question_id']);
+        // error_log($request['question_id']);
         $answers = answer::where('question_id','=',$id)->get();
         return response(['answers'=>$answers]);
     }

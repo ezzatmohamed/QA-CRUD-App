@@ -20,18 +20,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/login','UserController@login');
 Route::post('/signup','UserController@signup');
+Route::post('/logout','UserController@logout');
 
-Route::prefix('/question')->group(function(){
+Route::group(['prefix'=>'/question','middleware' => ['CheckAuth']],function(){
     Route::post('/create','QuestionController@create');
-    Route::post('/update/{id}','QuestionController@update');
-    Route::post('/delete/{id}','QuestionController@delete');
+    Route::post('/update/{id}','QuestionController@update')->middleware('QuestionBelongsToUser');
+    Route::post('/delete/{id}','QuestionController@delete')->middleware('QuestionBelongsToUser');
     Route::get('/read-all','QuestionController@readAll');
     Route::get('/read-mine','QuestionController@readMine');
 });
 
-Route::prefix('/answer')->group(function(){
+Route::group(['prefix'=>'/answer','middleware' => ['CheckAuth']],function(){
     Route::post('/create','AnswerController@create');
     Route::get('/read/{id}','AnswerController@read');
-    Route::post('/update/{id}','AnswerController@update');
-    Route::post('/delete/{id}','AnswerController@delete');
+    Route::post('/update/{id}','AnswerController@update')->middleware('AnswerBelongsToUser');
+    Route::post('/delete/{id}','AnswerController@delete')->middleware('AnswerBelongsToUser');
 });

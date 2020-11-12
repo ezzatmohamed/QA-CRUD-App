@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\question;
+use App\answer;
 use Illuminate\Support\Facades\Auth;
 class QuestionController extends Controller
 {
@@ -42,6 +43,7 @@ class QuestionController extends Controller
     public function delete(Request $request, $id)
     {
         $question = question::find($id);
+        $answer = answer::where('question_id','=',$id)->delete();
         $question->delete();
         return response(['message'=>'question deleted']);
     }
